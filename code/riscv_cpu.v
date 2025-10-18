@@ -20,7 +20,7 @@ controller  c   (Instr[6:0], Instr[14:12], Instr[30], Zero,
                 ImmSrc, ALUControl);
 
 datapath    dp  (clk, reset, ResultSrc, PCSrc,
-                ALUSrc, RegWrite, ImmSrc, ALUControl,
+                ALUSrc, RegWrite, ImmSrc, ALUControl, Jump,
                 Zero, PC, Instr, Mem_WrAddr, Mem_WrData, ReadData, Result);
 
 endmodule

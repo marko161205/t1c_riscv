@@ -7,7 +7,7 @@ module datapath (
     input         RegWrite,
     input [1:0]   ImmSrc,
     input [3:0]   ALUControl,
-    output        Zero,
+    output        Jump, Zero,
     output [31:0] PC,
     input  [31:0] Instr,
     output [31:0] Mem_WrAddr, Mem_WrData,
@@ -15,13 +15,11 @@ module datapath (
     output [31:0] Result
 );
 
-wire [31:0] PCNext, PCPlus4, PCTarget, auipc, laupc;
+wire [31:0] PCNext, PC1, PCPlus4, PCTarget, auipc, laupc;
 wire [31:0] ImmExt, SrcA, SrcB, WriteData, ALUResult;
 
-// next PC logic
-reset_ff #(32) pcreg(clk, reset, PCNext, PC);
-adder          pcadd4(PC, 32'd4, PCPlus4);
-adder          pcaddbranch(PC, ImmExt, PCTarget);
+
+
 mux2 #(32)     pcmux(PCPlus4, PCTarget, PCSrc, PCNext);
 
 // register file logic
@@ -36,7 +34,12 @@ alu            alu (SrcA, SrcB, ALUControl, ALUResult, Zero);
 adder #(32)     auipc_adder(PC, {Instr[31:12], 12'b0}, auipc);
 mux2 #(32)     auipc_mux(auipc, {Instr[31:12], 12'b0}, Instr[5], laupc);
 
+mux2 #(32)     pcmux_jump(PCNext, ALUResult, Jump, PC1);
 
+// next PC logic
+reset_ff #(32) pcreg(clk, reset, PC1, PC);
+adder          pcadd4(PC, 32'd4, PCPlus4);
+adder          pcaddbranch(PC, ImmExt, PCTarget);
 
 //result  
 mux4 #(32)     resultmux(ALUResult, ReadData, PCPlus4,laupc, ResultSrc, Result);

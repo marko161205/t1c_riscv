@@ -10,7 +10,7 @@ always @(*) begin
     case(immsrc)
         // I−type
         2'b00:begin
-                if ((instr[14:12] == 3'b101) || (instr[14:12] == 3'b100)) begin
+                if ( (instr[14:12] == 3'b100)) begin
                     immext = {27'b0, instr[24:20]};
                 end else begin
                     immext = {{20{instr[31]}}, instr[31:20]};
