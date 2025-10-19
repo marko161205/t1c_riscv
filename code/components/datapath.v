@@ -12,7 +12,8 @@ module datapath (
     input  [31:0] Instr,
     output [31:0] Mem_WrAddr, Mem_WrData,
     input  [31:0] ReadData,
-    output [31:0] Result
+    output [31:0] Result,
+    output        ALUR31
 );
 
 wire [31:0] PCNext, PC1, PCPlus4, PCTarget, auipc, laupc;
@@ -20,7 +21,6 @@ wire [31:0] ImmExt, SrcA, SrcB, WriteData, ALUResult;
 
 
 
-mux2 #(32)     pcmux(PCPlus4, PCTarget, PCSrc, PCNext);
 
 // register file logic
 reg_file       rf (clk, RegWrite, Instr[19:15], Instr[24:20], Instr[11:7], Result, SrcA, WriteData);
@@ -34,6 +34,7 @@ alu            alu (SrcA, SrcB, ALUControl, ALUResult, Zero);
 adder #(32)     auipc_adder(PC, {Instr[31:12], 12'b0}, auipc);
 mux2 #(32)     auipc_mux(auipc, {Instr[31:12], 12'b0}, Instr[5], laupc);
 
+mux2 #(32)     pcmux(PCPlus4, PCTarget, PCSrc, PCNext);
 mux2 #(32)     pcmux_jump(PCNext, ALUResult, Jump, PC1);
 
 // next PC logic
@@ -46,6 +47,8 @@ mux4 #(32)     resultmux(ALUResult, ReadData, PCPlus4,laupc, ResultSrc, Result);
 
 assign Mem_WrData = WriteData;
 assign Mem_WrAddr = ALUResult;
+
+assign ALUR31 = ALUResult[31];
 
 endmodule
 

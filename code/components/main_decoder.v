@@ -3,6 +3,8 @@
 
 module main_decoder (
     input  [6:0] op,
+    input  [2:0] funct3,
+    input       Zero,ALUR31,
     output [1:0] ResultSrc,
     output       MemWrite, Branch, ALUSrc,
     output       RegWrite, Jump,
@@ -19,7 +21,40 @@ always @(*) begin
         7'b0010011: controls = 11'b1_00_1_0_00_0_10_0; // I–type ALU user things
         7'b0100011: controls = 11'b0_01_1_1_00_0_00_0; // sw
         7'b0110011: controls = 11'b1_xx_0_0_00_0_10_0; // R–type
-        7'b1100011: controls = 11'b0_10_0_0_00_1_01_0; // beq
+        7'b1100011: 
+            case (funct3)                               //branch
+                3'b000: 
+                    case(Zero) //beq
+                        1'b0: controls = 11'b0_10_0_0_00_0_01_0; 
+                        1'b1: controls = 11'b0_10_0_0_00_1_01_0;
+                    endcase
+                3'b001: // bne
+                    case(!Zero) 
+                        1'b0: controls = 11'b0_10_0_0_00_0_01_0; 
+                        1'b1: controls = 11'b0_10_0_0_00_1_01_0;
+                    endcase
+                (3'b100):// blt
+                    case(ALUR31) 
+                        1'b0: controls = 11'b0_10_0_0_00_0_01_0; 
+                        1'b1: controls = 11'b0_10_0_0_00_1_01_0;
+                    endcase
+                (3'b101): // bge
+                    case(!ALUR31) 
+                        1'b0: controls = 11'b0_10_0_0_00_0_01_0; 
+                        1'b1: controls = 11'b0_10_0_0_00_1_01_0;
+                    endcase
+                3'b110: 
+                    case(ALUR31)
+                        1'b0: controls = 11'b0_10_0_0_00_0_01_0; 
+                        1'b1: controls = 11'b0_10_0_0_00_1_01_0;
+                    endcase // bltu
+                3'b111:// bgeu
+                    case(~ALUR31)
+                        1'b0: controls = 11'b0_10_0_0_00_0_01_0; 
+                        1'b1: controls = 11'b0_10_0_0_00_1_01_0;
+                    endcase 
+                default: controls = 11'b0_10_0_0_00_1_01_0; // ???
+            endcase
         7'b1101111: controls = 11'b1_11_0_0_10_0_00_1; // jal
         7'b0110111: controls = 11'b1_xx_x_0_11_0_00_0; //lui
         7'b0010111: controls = 11'b1_00_1_0_11_0_00_0; //auipc

@@ -11,19 +11,20 @@ module controller (
     output       PCSrc, ALUSrc,
     output       RegWrite, Jump,
     output [1:0] ImmSrc,
-    output [3:0] ALUControl
+    output [3:0] ALUControl,
+    input       ALUR31
 );
 
 wire [1:0] ALUOp;
 wire       Branch;
 
-main_decoder    md (op, ResultSrc, MemWrite, Branch,
+main_decoder    md (op,funct3, Zero, ALUR31, ResultSrc, MemWrite, Branch,
                     ALUSrc, RegWrite, Jump, ImmSrc, ALUOp);
 
 alu_decoder     ad (op[5], funct3, funct7b5, ALUOp, ALUControl);
 
 // for jump and branch
-assign PCSrc = (Branch & Zero) | Jump;
+assign PCSrc = Branch | Jump;
 
 endmodule
 

@@ -15,13 +15,13 @@ wire        ALUSrc, RegWrite, Jump, Zero;
 wire [1:0]  ResultSrc, ImmSrc;
 wire [3:0]  ALUControl;
 
-controller  c   (Instr[6:0], Instr[14:12], Instr[30], Zero,
-                ResultSrc, MemWrite, PCSrc, ALUSrc, RegWrite, Jump,
-                ImmSrc, ALUControl);
 
 datapath    dp  (clk, reset, ResultSrc, PCSrc,
                 ALUSrc, RegWrite, ImmSrc, ALUControl, Jump,
-                Zero, PC, Instr, Mem_WrAddr, Mem_WrData, ReadData, Result);
+                Zero, PC, Instr, Mem_WrAddr, Mem_WrData, ReadData, Result, ALUR31);
 
+controller  c   (Instr[6:0], Instr[14:12], Instr[30], Zero,
+                ResultSrc, MemWrite, PCSrc, ALUSrc, RegWrite, Jump,
+                ImmSrc, ALUControl, ALUR31);
 endmodule
 
