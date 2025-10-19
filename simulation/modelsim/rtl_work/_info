@@ -10,7 +10,7 @@ z2
 cModel Technology
 Z0 d/home/omkar/Downloads/3586_task1c/t1c_riscv_cpu/simulation/modelsim
 vadder
-Z1 !s110 1760847006
+Z1 !s110 1760852331
 !i10b 1
 !s100 jXE67fZjiCj2W4l?`i:H?0
 Z2 !s11b Dg1SIo80bB@j0V0VzS_@n1
@@ -26,7 +26,7 @@ Z4 OV;L;2020.1;71
 r1
 !s85 0
 31
-Z5 !s108 1760847006.000000
+Z5 !s108 1760852331.000000
 !s107 /home/omkar/Downloads/3586_task1c/t1c_riscv_cpu/code/components/adder.v|
 !s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+/home/omkar/Downloads/3586_task1c/t1c_riscv_cpu/code/components|/home/omkar/Downloads/3586_task1c/t1c_riscv_cpu/code/components/adder.v|
 !i113 1
@@ -108,16 +108,16 @@ R8
 vdata_mem
 R1
 !i10b 1
-!s100 cSgAMTM]e`<Hged1CI=SB3
+!s100 ?TMX[z1XVeHdNAciGH2aS3
 R2
-Ijn<=nXGPAH58eT7VCofU00
+IYTcATW[TziLKdQNd6>?EA2
 R3
 R0
-w1760796996
+w1760852306
 8/home/omkar/Downloads/3586_task1c/t1c_riscv_cpu/code/data_mem.v
 F/home/omkar/Downloads/3586_task1c/t1c_riscv_cpu/code/data_mem.v
 !i122 2
-L0 4 19
+L0 4 79
 R4
 r1
 !s85 0
@@ -156,16 +156,16 @@ R8
 vimm_extend
 R1
 !i10b 1
-!s100 z@>ZiPhXBQ:I0BZKQdSoH2
+!s100 h8@K457Ga@hT_:R>45AeL0
 R2
-IGe3fL:=GUo]V<[`W1YGM=0
+IIZIk^OFRbOXkTA[eKD];C1
 R3
 R0
-w1760797533
+w1760847539
 8/home/omkar/Downloads/3586_task1c/t1c_riscv_cpu/code/components/imm_extend.v
 F/home/omkar/Downloads/3586_task1c/t1c_riscv_cpu/code/components/imm_extend.v
 !i122 8
-L0 3 27
+L0 3 23
 R4
 r1
 !s85 0
@@ -348,12 +348,12 @@ R8
 vt1c_riscv_cpu
 R1
 !i10b 1
-!s100 oD6?=SeKU0SnTObcXJl:K1
+!s100 aMlS2V90cR7oCO199HVhD0
 R2
-I[bSJJCUk3`R;8TT4Y?;f13
+I5>5TgQn1WND=;^kU4<NKC2
 R3
 R0
-w1760419253
+w1760851359
 8/home/omkar/Downloads/3586_task1c/t1c_riscv_cpu/code/t1c_riscv_cpu.v
 F/home/omkar/Downloads/3586_task1c/t1c_riscv_cpu/code/t1c_riscv_cpu.v
 !i122 0
